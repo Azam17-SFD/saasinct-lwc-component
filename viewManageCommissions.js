@@ -1,6 +1,7 @@
 import { LightningElement,wire,api,track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
+import LightningAlert from 'lightning/alert';
 import {getObjectInfo, getPicklistValues, getPicklistValuesByRecordType} from 'lightning/uiObjectInfoApi';
 import getCommissionRate from '@salesforce/apex/ViewManageCommissionsController.getCommissionRate';
 import Producer_Sub_Producer_Commission_Rate from '@salesforce/schema/VRNA__Producer_Sub_Producer_Commission_Rate__c' ;
@@ -54,7 +55,8 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
     productionPercent;
     commissionAmount;
     commissionError;
-    displayTable;  
+    displayTable;
+    sumPercent = 0;  
     fields = {
         policy             : POLICY ,
         internalProducer   : INTERNAL_PRODUCER,
@@ -120,6 +122,10 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
                  this.dataItem = data ;
                  console.log('dataItem >>',this.dataItem);
                  this.displayTable = data.length == 0 ? true : false ;
+                  this.sumPercent = data.reduce((acc,curr,i,arr) =>{
+                    return acc + curr.VRNA__Production_Percent__c ;
+                 },0);
+                 console.log('sumPercent >>',this.sumPercent);
                 // this.data = data[0];
                 // this.carrierBusinessType = this.data.VRNA__Carrier_Business_Type__c;
                 // this.agencyBusinessType = this.data.VRNA__Agency_Business_Type__c;
@@ -220,7 +226,15 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
         this.dispatchEvent(events);
         console.log('handle error ',event.detail.detail);
     }
-    handleValidation(event){
+    async handleValidation(event){
         console.log('Inside handleValidation >>',event.target.value);
+        console.log('if condition >>',this.sumPercent + event.target.value)
+        if((this.sumPercent + Number(event.target.value)) > 100){
+            await LightningAlert.open({
+                message: 'Sum of Production Percent Cannot be more than 100',
+                theme: 'error', 
+                label: 'Error!',
+            });
+        }
     }
 }
