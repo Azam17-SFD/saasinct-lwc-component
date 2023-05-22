@@ -56,7 +56,15 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
     commissionAmount;
     commissionError;
     displayTable;
-    sumPercent = 0;  
+    sumPercent = 0;
+    agencyFields = [
+        {AgencyCommissionRuleId : ''},
+        {CarrierBusinessType : 'VRNA__Carrier_Business_Type__c'},
+        {AgencyBusinessType : 'VRNA__Agency_Business_Type__c'},
+        {AgencyCommission : 'VRNA__Agency_Percent__c'},
+        {CurrentAgencyCommission : 'VRNA__Current_Agency_Commissions__c'}
+        
+    ]  
     fields = {
         policy             : POLICY ,
         internalProducer   : INTERNAL_PRODUCER,
