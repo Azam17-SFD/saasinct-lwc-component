@@ -81,19 +81,7 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
         productionPercent  : PRODUCTION_PERCENT
     }
    
-    @wire(getObjectInfo, {objectApiName:POLICY_OBJECT})
-        policyInfo;
-     @wire(getPicklistValuesByRecordType, {objectApiName:POLICY_OBJECT, recordTypeId:'0126A000000sVrDQAU'})
-     getAllPicklistValues({data, error}){
-         if(data){
-            console.log('all picklist >>>', data);
-         }
-         if(error){
-             console.log('getAllPicklistValues error >>',error);
-         }
-     }
-    
-     @wire(getCommissionRate,{recId:'$recordId'})
+    @wire(getCommissionRate,{recId:'$recordId'})
          wiredPolicy({error,data}){
              if(data){
                  console.log('data >>',data);
@@ -108,9 +96,6 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
                   }
                  })
                  console.log('sumPercent >>',this.sumPercent);
-                 console.log('data value :',data[8].VRNA__Production_Percent__c);
-                 console.log('data type :',typeof(data[8].VRNA__Production_Percent__c));
-                
               }
              if(error){
                  console.log('error>>>',error);

@@ -328,7 +328,7 @@
       </div>
  </div>
  <!--First Table Starts-->
- <div class="slds-card__body">
+ <!--<div class="slds-card__body">
     <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered " role="grid" aria-label="Example table in a Card">
     <thead>
     <tr class="slds-line-height_reset">
@@ -444,14 +444,14 @@
     
     </tbody>
     </table>
-    </div>
+    </div>-->
 
 
  
   <!--First Table Ends-->
   
   <!--Second Table Starts-->
-<div class="slds-card__body">
+<!--<div class="slds-card__body">
     <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered" role="grid" aria-label="Example table in a Card">
     <thead>
     <tr class="slds-line-height_reset">
@@ -520,7 +520,7 @@
                   record-id={recordId}
                   record-type-id={writtenBenefitRecorTypeID}
                   object-api-name="VRNA__Policy__c">
-               <!-- <lightning-messages></lightning-messages> -->
+               
               <lightning-input-field field-name="VRNA__Commission_Basis__c" variant="label-hidden"></lightning-input-field>
              </lightning-record-edit-form>
           </div>
@@ -533,7 +533,7 @@
                 onerror={handleError} 
                 class = 'ProducerCommissionFields'
                 object-api-name="VRNA__Policy__c">
-            <!-- <lightning-messages></lightning-messages> -->
+            
             <lightning-input-field field-name="VRNA__Sub_Producer_Commission_Percent__c" variant="label-hidden"></lightning-input-field>
            </lightning-record-edit-form>
         </div>
@@ -545,7 +545,7 @@
                 record-type-id={writtenBenefitRecorTypeID}
                 object-api-name="VRNA__Policy__c"
                 class = 'ProducerCommissionFields'>
-            <!-- <lightning-messages></lightning-messages> -->
+         
             <lightning-input-field field-name="VRNA__Broker_Commission_Amount__c" variant="label-hidden"></lightning-input-field>
            </lightning-record-edit-form>
         </div>
@@ -556,7 +556,7 @@
                 record-id={recordId}
                 record-type-id={writtenBenefitRecorTypeID}
                 object-api-name="VRNA__Policy__c">
-            <!-- <lightning-messages></lightning-messages> -->
+            
             <lightning-input-field field-name="VRNA__Agency_Fee__c" variant="label-hidden"></lightning-input-field>
            </lightning-record-edit-form>
         </div>
@@ -568,7 +568,7 @@
     
     </tbody>
     </table>
-    </div>
+    </div>-->
 
 
   <!--Second Table Ends-->
@@ -631,7 +631,6 @@
                     <div class="slds-truncate" title="Producer Commission %">
                       <lightning-record-view-form
                           record-id={data.Id}
-                          record-type-id={writtenBenefitRecorTypeID}
                           object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
                       <lightning-output-field field-name="Producer_Commission_Percent__c" variant = 'label-hidden'></lightning-output-field>
                       </lightning-record-view-form>
@@ -643,7 +642,8 @@
                     <div  title="Role">
                       <lightning-record-edit-form
                           record-id={data.Id}
-                          object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
+                          object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c"
+                          class = "ProducerCommissionFields">
                       <lightning-input-field field-name="Role__c" variant = 'label-hidden'></lightning-input-field>
                       </lightning-record-edit-form>
                     </div>
@@ -652,9 +652,8 @@
                       <div class="slds-truncate" title="Producer Commission %">
                         <lightning-record-edit-form
                             record-id={data.Id}
-                            record-type-id={writtenBenefitRecorTypeID}
-                            object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
-                        <lightning-input-field field-name="Producer_Commission_Percent__c" variant = 'label-hidden'></lightning-input-field>
+                            object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c" class = "ProducerCommissionFields">
+                        <lightning-input-field field-name="Producer_Commission_Percent__c" variant = 'label-hidden' class="ProductionPercentFields" onchange={handleValidation}></lightning-input-field>
                         </lightning-record-edit-form>
                       </div>
                       </td>
@@ -664,11 +663,9 @@
                     <div class="slds-truncate" title="Production Percent">
                       <lightning-record-view-form 
                             record-id={data.Id}
-                            record-type-id={writtenBenefitRecorTypeID}
                             object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c"
-                            class = 'ProducerCommissionFields'
                             >
-                        <lightning-output-field field-name="Producer_Commission__c" variant = 'label-hidden' class="ProductionPercentFields" onchange={handleValidation}></lightning-output-field>
+                        <lightning-output-field field-name="Producer_Commission__c" variant = 'label-hidden'></lightning-output-field>
                       </lightning-record-view-form>
                     </div>
                     </td>
