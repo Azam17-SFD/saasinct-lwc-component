@@ -6,9 +6,9 @@
       rec-id = {recordId}
       section-name = "Agency Commission"
       agency-or-producer-list = {agencyFields}
-    > -->
+    > 
 
-    </c-view-manage-commission-table>
+    </c-view-manage-commission-table>-->
    <article class="slds-card">
     <div class="slds-card__header  slds-theme_shade">
     <header class="slds-media slds-media_center slds-has-flexi-truncate">
@@ -44,9 +44,9 @@
     <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered" role="grid" aria-label="Example table in a Card">
     <thead>
     <tr class="slds-line-height_reset">
-    <th class="" scope="col">
+    <!--th class="" scope="col">
     <div class="slds-truncate" title="Agency Commission Rule Id">Agency Commission Rule Id</div>
-    </th>
+    </th-->
     <th class="" scope="col">
     <div class="slds-truncate" title="Carrier Business Type">Carrier Business Type</div>
     </th>
@@ -57,7 +57,7 @@
     <div class="slds-truncate" title="Agency Commission %">Agency Commission %</div>
     </th>
     <th class="" scope="col">
-    <div class="slds-truncate" title="Current Agency Commission">Current Agency Commission</div>
+    <div class="slds-truncate" title="Current Agency Commission">Agency Commission</div>
     </th>
     </tr>
     </thead>
@@ -65,10 +65,7 @@
       <template if:true={show2}>
     
         <tr class="slds-hint-parent">
-        <td role="gridcell">
-        
-        </td>
-    <td >
+      <td >
       <div title="Carrier Business Type">
         <lightning-record-edit-form 
               record-id={recordId}
@@ -105,14 +102,14 @@
       </div>
     </td>
     <td >
-      <div title="Current Agency Commission">
+      <div title="Agency Commission">
         <lightning-record-edit-form 
               record-id={recordId}
               record-type-id={writtenBenefitRecorTypeID}
               object-api-name="VRNA__Policy__c"
               class = 'AgencyCommissionFields'>
           <!-- <lightning-messages></lightning-messages> -->
-          <lightning-input-field field-name="VRNA__Current_Agency_Commissions__c" variant="label-hidden"></lightning-input-field>
+          <lightning-input-field field-name="VRNA__Initial_Agency_Commission__c" variant="label-hidden"></lightning-input-field>
          </lightning-record-edit-form>
       </div>
     </td>
@@ -121,7 +118,7 @@
   </template>
   <template if:false={show2}>
     <tr class="slds-hint-parent">
-      <td>
+      <!--td>
       <div class="slds-truncate" title="Agency Commission Rule Id">
           <lightning-record-view-form
               record-id={recordId}
@@ -129,7 +126,7 @@
           <lightning-output-field field-name="VRNA__Default_Agency_Commission__c" variant = 'label-hidden'></lightning-output-field>
          </lightning-record-view-form>
         </div>
-        </td>
+        </td-->
     <td role="gridcell">
     <div class="slds-truncate" title="Carrier Business Type">
       <lightning-record-view-form
@@ -158,11 +155,123 @@
     </div>
     </td>
     <td role="gridcell">
-      <div class="slds-truncate" title="Current Agency Commission">
+      <div class="slds-truncate" title="Agency Commission">
         <lightning-record-view-form
         record-id={recordId}
         object-api-name="VRNA__Policy__c">
-    <lightning-output-field field-name="VRNA__Current_Agency_Commissions__c" variant = 'label-hidden'></lightning-output-field>
+    <lightning-output-field field-name="VRNA__Initial_Agency_Commission__c" variant = 'label-hidden'></lightning-output-field>
+   </lightning-record-view-form>
+      </div>
+      </td>
+    </tr>
+  </template>
+  
+    </tbody>
+    </table>
+  </div>
+  <!--Agency Commission Second Table-->
+  <div class="slds-card__body">
+    <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered" role="grid" aria-label="Example table in a Card">
+    <thead>
+    <tr class="slds-line-height_reset">
+   <th class="" scope="col">
+    <div class="slds-truncate" title="Partner Split %">Partner Split %</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Partner Share">Partner Share</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Keystone Split %">Keystone Split %</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Keystone Share">Keystone Share</div>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+      <template if:true={show2}>
+    
+        <tr class="slds-hint-parent">
+      <td >
+      <div title="Partner Split %">
+        <lightning-record-edit-form 
+              record-id={recordId}
+              record-type-id={writtenBenefitRecorTypeID}
+              object-api-name="VRNA__Policy__c"
+              class = 'AgencyCommissionFields'>
+          <!-- <lightning-messages></lightning-messages> -->
+          <lightning-input-field field-name="VRNA__Sub_Producer_Commission_Percent__c" variant="label-hidden"></lightning-input-field>
+         </lightning-record-edit-form>
+      </div>
+      </td>
+    <td role="gridcell">
+      <div  title="Partner Share">
+        
+      </div>
+    </td>
+    <td role="gridcell">
+      <div  title="Keystone Split %">
+        <lightning-record-edit-form 
+              record-id={recordId}
+              record-type-id={writtenBenefitRecorTypeID}
+              object-api-name="VRNA__Policy__c"
+              class = 'AgencyCommissionFields'>
+          <!-- <lightning-messages></lightning-messages> -->
+          <lightning-input-field field-name="VRNA__Broker_Commission_Percent__c" variant="label-hidden"></lightning-input-field>
+         </lightning-record-edit-form>
+      </div>
+    </td>
+    <td >
+      <div title="Keystone Share">
+        <lightning-record-edit-form 
+              record-id={recordId}
+              record-type-id={writtenBenefitRecorTypeID}
+              object-api-name="VRNA__Policy__c"
+              class = 'AgencyCommissionFields'>
+          <!-- <lightning-messages></lightning-messages> -->
+          <lightning-input-field field-name="VRNA__Broker_Commission_Amount__c" variant="label-hidden"></lightning-input-field>
+         </lightning-record-edit-form>
+      </div>
+    </td>
+    
+    </tr>
+  </template>
+  <template if:false={show2}>
+    <tr class="slds-hint-parent">
+      
+    <td role="gridcell">
+    <div class="slds-truncate" title="Partner Split %">
+      <lightning-record-view-form
+          record-id={recordId}
+          object-api-name="VRNA__Policy__c">
+      <lightning-output-field field-name="VRNA__Sub_Producer_Commission_Percent__c" variant = 'label-hidden'></lightning-output-field>
+     </lightning-record-view-form>
+    </div>
+    </td>
+    <td role="gridcell">
+    <div class="slds-truncate" title="Partner Share">
+      <!--lightning-record-view-form
+          record-id={recordId}
+          object-api-name="VRNA__Policy__c">
+      <lightning-output-field field-name="VRNA__Agency_Business_Type__c" variant = 'label-hidden'></lightning-output-field>
+     </lightning-record-view-form-->
+    </div>
+    </td>
+    <td role="gridcell">
+    <div class="slds-truncate" title="Keystone Split %">
+      <lightning-record-view-form
+          record-id={recordId}
+          object-api-name="VRNA__Policy__c">
+      <lightning-output-field field-name="VRNA__Broker_Commission_Percent__c" variant = 'label-hidden'></lightning-output-field>
+     </lightning-record-view-form>
+    </div>
+    </td>
+    <td role="gridcell">
+      <div class="slds-truncate" title="Keystone Share">
+        <lightning-record-view-form
+        record-id={recordId}
+        object-api-name="VRNA__Policy__c">
+    <lightning-output-field field-name="VRNA__Broker_Commission_Amount__c" variant = 'label-hidden'></lightning-output-field>
    </lightning-record-view-form>
       </div>
       </td>
@@ -476,10 +585,13 @@
     <div class="slds-truncate" title="Producers">Producers</div>
     </th>
     <th class="" scope="col">
-    <div class="slds-truncate" title="Production Percent">Production Percent</div>
+    <div class="slds-truncate" title="Role">Role</div>
     </th>
     <th class="" scope="col">
-    <div class="slds-truncate" title="Commission Amount">Commission Amount</div>
+    <div class="slds-truncate" title="Production Percent">Producer Commission %</div>
+    </th>
+    <th class="" scope="col">
+    <div class="slds-truncate" title="Commission Amount">Producer Commision</div>
     </th>
     </tr>
     </thead>
@@ -494,7 +606,6 @@
                     object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
                 <lightning-output-field field-name="Commission_Rate__c" variant = 'label-hidden'></lightning-output-field>
                 </lightning-record-view-form>
-                <!-- <a href="#" onclick={handleCommissionNav}>{data.Name}</a> -->
               </div>
               </td>
               <td role="gridcell">
@@ -507,31 +618,61 @@
                 </div>
                 </td>
                 <template if:false= {show}>
-                  <td role="gridcell">
-                    <div class="slds-truncate" title="Production Percent">
+                <td role="gridcell">
+                  <div class="slds-truncate" title="Role">
+                    <lightning-record-view-form
+                        record-id={data.Id}
+                        object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
+                    <lightning-output-field field-name="Role__c" variant = 'label-hidden'></lightning-output-field>
+                    </lightning-record-view-form>
+                  </div>
+                  </td>
+                <td role="gridcell">
+                    <div class="slds-truncate" title="Producer Commission %">
                       <lightning-record-view-form
                           record-id={data.Id}
                           record-type-id={writtenBenefitRecorTypeID}
                           object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
-                      <lightning-output-field field-name="VRNA__Production_Percent__c" variant = 'label-hidden'></lightning-output-field>
+                      <lightning-output-field field-name="Producer_Commission_Percent__c" variant = 'label-hidden'></lightning-output-field>
                       </lightning-record-view-form>
                     </div>
                     </td>
                 </template>
                 <template if:true= {show}>
                   <td role="gridcell">
+                    <div  title="Role">
+                      <lightning-record-edit-form
+                          record-id={data.Id}
+                          object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
+                      <lightning-input-field field-name="Role__c" variant = 'label-hidden'></lightning-input-field>
+                      </lightning-record-edit-form>
+                    </div>
+                    </td>
+                  <td role="gridcell">
+                      <div class="slds-truncate" title="Producer Commission %">
+                        <lightning-record-edit-form
+                            record-id={data.Id}
+                            record-type-id={writtenBenefitRecorTypeID}
+                            object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
+                        <lightning-input-field field-name="Producer_Commission_Percent__c" variant = 'label-hidden'></lightning-input-field>
+                        </lightning-record-edit-form>
+                      </div>
+                      </td>
+                  </template>
+                <!--template if:true= {show}-->
+                  <td role="gridcell">
                     <div class="slds-truncate" title="Production Percent">
-                      <lightning-record-edit-form 
+                      <lightning-record-view-form 
                             record-id={data.Id}
                             record-type-id={writtenBenefitRecorTypeID}
                             object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c"
                             class = 'ProducerCommissionFields'
                             >
-                        <lightning-input-field field-name="VRNA__Production_Percent__c" variant = 'label-hidden' onchange={handleValidation}></lightning-input-field>
-                      </lightning-record-edit-form>
+                        <lightning-output-field field-name="Producer_Commission__c" variant = 'label-hidden' class="ProductionPercentFields" onchange={handleValidation}></lightning-output-field>
+                      </lightning-record-view-form>
                     </div>
                     </td>
-                </template>
+                <!--/template-->
                 
             
             </tr>
@@ -543,23 +684,90 @@
             <div class="slds-truncate">
             </div>
             </td>
-            <td role="gridcell">
-              <div class="slds-truncate" title="
-              Primary Producer">
-                <lightning-record-view-form
-                    record-id={recordId}
-                    record-type-id={writtenBenefitRecorTypeID}
-                    object-api-name="VRNA__Policy__c">
-                <lightning-output-field field-name="VRNA__Primary_Producer__c" variant = 'label-hidden'></lightning-output-field>
-                <lightning-output-field field-name="VRNA__Sub_Producer__c" variant = 'label-hidden'></lightning-output-field>
-                <lightning-output-field field-name="VRNA__Sub_Producer_2__c" variant = 'label-hidden'></lightning-output-field>
-                </lightning-record-view-form>
-                <!-- <a href="#" onclick={handleCommissionNav}>{data.Name}</a> -->
-              </div>
+            </tr>
+            <tr>
+              <td role="gridcell">
+                <div class="slds-truncate" title="
+                Primary Producer">
+                  
+                </div>
               </td>
-              </tr>
-              
-          </template>
+              <td role="gridcell">
+                <div class="slds-truncate" title="
+                Primary Producer">
+                  <lightning-record-view-form
+                      record-id={recordId}
+                      record-type-id={writtenBenefitRecorTypeID}
+                      object-api-name="VRNA__Policy__c">
+                  <lightning-output-field field-name="VRNA__Primary_Producer__c" variant = 'label-hidden'></lightning-output-field>
+                  </lightning-record-view-form>
+                </div>
+            </td>
+            <template if:true={show}>
+                    <td>
+                      <div class="slds-truncate" title="
+                            Primary Producer">
+                        <lightning-input type="text" variant="standard" name="ProductionPercent1" class = "prodPercentFields" onblur={handleProdFields}></lightning-input>
+                      </div>
+                    </td>
+                  </template>
+             </tr>
+            <tr>
+              <td role="gridcell">
+                <div class="slds-truncate" title="
+                Primary Producer">
+                  
+                </div>
+              </td>
+              <td role="gridcell">
+                <div class="slds-truncate" title="
+                Primary Producer">
+                  <lightning-record-view-form
+                      record-id={recordId}
+                      record-type-id={writtenBenefitRecorTypeID}
+                      object-api-name="VRNA__Policy__c">
+                      <lightning-output-field field-name="VRNA__Sub_Producer__c" variant = 'label-hidden'></lightning-output-field>
+                  </lightning-record-view-form>
+                </div>
+              </td>
+                  <template if:true={show}>
+                    <td>
+                      <div class="slds-truncate" title="
+                            Primary Producer">
+                        <lightning-input type="text" variant="standard" name="ProductionPercent2" class = "prodPercentFields" onblur={handleProdFields}></lightning-input>
+                      </div>
+                    </td>
+                  </template>
+            </tr>
+              <tr>
+                <td role="gridcell">
+                  <div class="slds-truncate" title="
+                  Primary Producer">
+                    
+                  </div>
+                </td>
+                <td role="gridcell">
+                  <div class="slds-truncate" title="
+                  Primary Producer">
+                    <lightning-record-view-form
+                        record-id={recordId}
+                        record-type-id={writtenBenefitRecorTypeID}
+                        object-api-name="VRNA__Policy__c">
+                      <lightning-output-field field-name="VRNA__Sub_Producer_2__c" variant = 'label-hidden'></lightning-output-field>
+                    </lightning-record-view-form>
+                  </div>
+                </td>
+            
+                    <template if:true={show}>
+                      <td>
+                        <div class="slds-truncate" title="
+                              Primary Producer">
+                          <lightning-input type="text" variant="standard" name="ProductionPercent3" class = "prodPercentFields" onblur={handleProdFields}></lightning-input>
+                        </div>
+                      </td>
+                    </template>
+                </tr>
+            </template>
     
     </tbody>
     

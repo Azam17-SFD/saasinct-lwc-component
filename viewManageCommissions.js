@@ -2,6 +2,7 @@ import { LightningElement,wire,api,track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import LightningAlert from 'lightning/alert';
+import createCommissionRate from '@salesforce/apex/ViewManageCommissionsController.createCommissionRate';
 import {getObjectInfo, getPicklistValues, getPicklistValuesByRecordType} from 'lightning/uiObjectInfoApi';
 import getCommissionRate from '@salesforce/apex/ViewManageCommissionsController.getCommissionRate';
 import Producer_Sub_Producer_Commission_Rate from '@salesforce/schema/VRNA__Producer_Sub_Producer_Commission_Rate__c' ;
@@ -57,6 +58,10 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
     commissionError;
     displayTable;
     sumPercent = 0;
+    sumProdPercent = 0;
+    cp1 = 0;
+    cp2 = 0;
+    cp3 = 0;
     agencyFields = [
         {AgencyCommissionRuleId : ''},
         {CarrierBusinessType : 'VRNA__Carrier_Business_Type__c'},
@@ -87,42 +92,7 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
              console.log('getAllPicklistValues error >>',error);
          }
      }
-    // @wire(getPicklistValues, {recordTypeId:this.writtenBenefitRecorTypeID, fieldApiName:CARRIER_BUSINESS_TYPE})
-    // carrierBusinessList({data,error}){
-    //     if(data){
-    //         console.log('carrierBusinessList >>',data);
-    //     }
-    //     if(error){
-    //         console.log('error >>',error);
-    //     }
-    // }
-    // @wire(getPicklistValues,{recordTypeId : this.writtenBenefitRecorTypeID, fieldApiName: AGENCY_BUSINESS_TYPE})
-    // agencyBusinessList({data,error}){
-    //     if(data){
-    //         console.log('agencyBusinessList >>>',data);
-    //     }
-    //     if(error){
-    //         console.log('agencyBusinessList error >>>',error);
-    //     }
-    // }
-    // @wire(getPicklistValues, {recordTypeId: this.writtenBenefitRecorTypeID, fieldNameApi:COMMISSION_BASIS})
-    // commonBasisList({data,error}){
-    //     if(data){
-    //         console.log('commonBasisList >>',data);
-    //     }
-    //     if(error){
-    //         console.log('commonBasisList error >>',error);
-    //     }
-    // }
-    // @wire(getPicklistValues, {recordTypeId:this.writtenBenefitRecorTypeID, fieldApiName: PRODUCER_COMISSION_TYPE})
-    // producerCommissionList({data,error}){
-    //     if(data){
-    //         console.log('producerCommissionList data >>',data);
-    //     }
-    //     if(error){
-    //         console.log('producerCommissionList error >>',error);
-    //     }
-    // }
+    
      @wire(getCommissionRate,{recId:'$recordId'})
          wiredPolicy({error,data}){
              if(data){
@@ -130,25 +100,17 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
                  this.dataItem = data ;
                  console.log('dataItem >>',this.dataItem);
                  this.displayTable = data.length == 0 ? true : false ;
-                  this.sumPercent = data.reduce((acc,curr,i,arr) =>{
-                    return acc + curr.VRNA__Production_Percent__c ;
-                 },0);
+                  
+                 data.forEach(val => {
+                    console.log('val >> ',val.VRNA__Production_Percent__c);
+                    if(val.VRNA__Production_Percent__c){
+                        this.sumPercent += val.VRNA__Production_Percent__c;
+                  }
+                 })
                  console.log('sumPercent >>',this.sumPercent);
-                // this.data = data[0];
-                // this.carrierBusinessType = this.data.VRNA__Carrier_Business_Type__c;
-                // this.agencyBusinessType = this.data.VRNA__Agency_Business_Type__c;
-                // this.agencyCommissionPercent = this.data.VRNA__Agency_Percent__c;
-                // this.currentAgencyCommission = `$${this.data.VRNA__Current_Agency_Commissions__c}`;
-                // this.producerCommissionRuleId = this.data.VRNA__Producer_Commission_Rule_Id__c;
-                // this.primaryProducer = this.data.VRNA__Primary_Producer__c;
-                // this.subProducer = this.data.VRNA__Sub_Producer__c;
-                // this.subProducer2 = this.data.VRNA__Sub_Producer_2__c;
-                // this.splitType = this.data.VRNA__Split_Type__c;
-                // this.commissionBasis = this.data.VRNA__Commission_Basis__c;
-                // this.producerCommission = this.data.Internal_Producer_Commission__c;
-                // this.commissionAmount = this.data.VRNA__Broker_Commission_Amount__c;
-                // this.commissionableAgencyFee = this.data.VRNA__Agency_Fee__c;
-                // this.commissionRate = this.data.VRNA__Producer_Commission_Rates_Inserted__c;
+                 console.log('data value :',data[8].VRNA__Production_Percent__c);
+                 console.log('data type :',typeof(data[8].VRNA__Production_Percent__c));
+                
               }
              if(error){
                  console.log('error>>>',error);
@@ -207,9 +169,44 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
         this.show2 = false;
     }
     handleProducerSave(event){
-        this.template.querySelectorAll('.ProducerCommissionFields').forEach(field => field.submit());
-        this.show = false;
-    }
+        let sum = 0;
+        const percentFields = Array.from(this.template.querySelectorAll('.ProductionPercentFields'));
+        console.log('percentFields >> ',percentFields);
+        percentFields.forEach(field =>{
+            console.log('field >> ',field.value);
+            if(field.value != undefined || field.value != null)
+            sum += Number(field.value);
+            console.log('sum >>',sum);
+            return sum;
+        });
+       console.log('Sum >>',sum);
+       if(sum == 100){
+        this.template.querySelectorAll('.ProducerCommissionFields').forEach(field => {
+            console.log('ProducerCommissionFields >>',field);
+            field.submit()
+        });
+       }else this.LightningAlert();
+      /*   if(this.show == true){
+            if(Number(this.cp1)+Number(this.cp2)+Number(this.cp3) !== 100){
+                console.log('sum >>',Number(this.cp1)+Number(this.cp2)+Number(this.cp3))
+                this.cp1 = 0;
+                this.cp2 = 0; 
+                this.cp3 = 0;
+                this.LightningAlert();
+            }
+            else{
+            createCommissionRate({recId:this.recordId,percent1:this.cp1,percent2:this.cp2,percent3:this.cp3})
+             .then(result => {
+                console.log('Commission Records Created Successfully');
+             })
+             .catch(error => {
+                console.log('error creating records');
+            });
+          } 
+   } */
+   this.show = false;
+    
+}
     handleProducerSuccess(){
         if(this.commissionError === null || this.commissionError === ''){
         const event = new ShowToastEvent({
@@ -234,15 +231,32 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
         this.dispatchEvent(events);
         console.log('handle error ',event.detail.detail);
     }
-    async handleValidation(event){
+    async LightningAlert(){
+        await LightningAlert.open({
+            message: 'Sum of Production Percent Cannot be more than 100',
+            theme: 'error', 
+            label: 'Error!',
+        }); 
+    }
+    handleValidation(event){
         console.log('Inside handleValidation >>',event.target.value);
-        console.log('if condition >>',this.sumPercent + event.target.value)
-        if((this.sumPercent + Number(event.target.value)) > 100){
-            await LightningAlert.open({
-                message: 'Sum of Production Percent Cannot be more than 100',
-                theme: 'error', 
-                label: 'Error!',
-            });
+        console.log('if condition >>',Number(this.sumPercent) + Number(event.target.value));
+        if((Number(this.sumPercent) + Number(event.target.value)) > 100){
+            //this.LightningAlert();
         }
+    }
+    handleProdFields(event){
+    
+        if(event.target.name == 'ProductionPercent1'){
+            this.cp1 = event.target.value;
+            console.log('ProductionPercent1',event.target.value);
+        }else if(event.target.name == 'ProductionPercent2'){
+            this.cp2 = event.target.value;
+            console.log('ProductionPercent2',event.target.value);
+        }else if(event.target.name == 'ProductionPercent3'){
+            this.cp3 = event.target.value;
+            console.log('ProductionPercent3',event.target.value);
+        }
+
     }
 }
