@@ -206,7 +206,13 @@
       </td>
     <td role="gridcell">
       <div  title="Partner Share">
-        
+        <lightning-record-edit-form 
+              record-id={recordId}
+              record-type-id={writtenBenefitRecorTypeID}
+              object-api-name="VRNA__Policy__c"
+              class = 'AgencyCommissionFields'>
+         <lightning-input-field field-name="Partner_Commission_Amount__c" variant="label-hidden"></lightning-input-field>
+         </lightning-record-edit-form>
       </div>
     </td>
     <td role="gridcell">
@@ -250,11 +256,11 @@
     </td>
     <td role="gridcell">
     <div class="slds-truncate" title="Partner Share">
-      <!--lightning-record-view-form
+      <lightning-record-view-form
           record-id={recordId}
           object-api-name="VRNA__Policy__c">
-      <lightning-output-field field-name="VRNA__Agency_Business_Type__c" variant = 'label-hidden'></lightning-output-field>
-     </lightning-record-view-form-->
+      <lightning-output-field field-name="Partner_Commission_Amount__c" variant = 'label-hidden'></lightning-output-field>
+     </lightning-record-view-form>
     </div>
     </td>
     <td role="gridcell">
@@ -579,10 +585,10 @@
     <thead>
     <tr class="slds-line-height_reset">
     <th class="" scope="col">
-    <div class="slds-truncate" title="Commission Rate #">Commission Rate #</div>
+    <div class="slds-truncate" style="width: 65%; margin: 0px 35px;" title="Commission Rate #">Commission Rate #</div>
     </th>
     <th class="" scope="col">
-    <div class="slds-truncate" title="Producers">Producers</div>
+    <div class="slds-truncate" style="width: 125%;" title="Producers">Producers</div>
     </th>
     <th class="" scope="col">
     <div class="slds-truncate" title="Role">Role</div>
@@ -628,8 +634,7 @@
                   </div>
                   </td>
                 <td role="gridcell">
-                    <div class="slds-truncate" title="Producer Commission %">
-                      <lightning-record-view-form
+                    <div class="slds-truncate" title="Producer Commission %"> <lightning-record-view-form
                           record-id={data.Id}
                           object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
                       <lightning-output-field field-name="Producer_Commission_Percent__c" variant = 'label-hidden'></lightning-output-field>
@@ -637,7 +642,7 @@
                     </div>
                     </td>
                 </template>
-                <template if:true= {show}>
+                <!--template if:true= {show}>
                   <td role="gridcell">
                     <div  title="Role">
                       <lightning-record-edit-form
@@ -647,7 +652,8 @@
                       <lightning-input-field field-name="Role__c" variant = 'label-hidden'></lightning-input-field>
                       </lightning-record-edit-form>
                     </div>
-                    </td>
+                    </td-->
+                <template if:true= {show}>
                   <td role="gridcell">
                       <div class="slds-truncate" title="Producer Commission %">
                         <lightning-record-edit-form
@@ -660,7 +666,7 @@
                   </template>
                 <!--template if:true= {show}-->
                   <td role="gridcell">
-                    <div class="slds-truncate" title="Production Percent">
+                    <div class="slds-truncate" title="Producer Commission">
                       <lightning-record-view-form 
                             record-id={data.Id}
                             object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c"
