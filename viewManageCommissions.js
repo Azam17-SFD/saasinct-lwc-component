@@ -80,7 +80,11 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
     }
     
     handleAgencySave(event){
-      this.template.querySelectorAll('.AgencyCommissionFields').forEach(fields => fields.submit());
+        console.log('handleAgencySave');
+         this.template.querySelectorAll('.AgencyCommissionFields').forEach(fields =>{
+            console.log('Agency Fields :',fields);
+        fields.submit();
+            }); 
       this.show2 = false;
     }
     handleAgencySuccess(){
@@ -143,7 +147,7 @@ export default class ViewManageCommissions extends NavigationMixin(LightningElem
     }
     async LightningAlert(){
         await LightningAlert.open({
-            message: 'Sum of Production Percent Cannot be more than 100',
+            message: 'Sum of Producer Commission Percent Should be equal to 100',
             theme: 'error', 
             label: 'Error!',
         }); 

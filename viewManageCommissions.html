@@ -13,7 +13,7 @@
     <div class="slds-card__header  slds-theme_shade">
     <header class="slds-media slds-media_center slds-has-flexi-truncate">
     
-    <div class="slds-media__body slds-text-heading_small">
+    <div class="slds-media__body slds-text-heading_small slds-var-m-around_medium">
     <b>Agency Commission</b>
     
     </div>
@@ -23,7 +23,7 @@
         </div>
     </template>
     <template if:true={displayResetAgencyButton}>
-      <div class="slds-no-flex">
+      <div class="slds-no-flex  slds-var-m-around_medium" >
         <button class="slds-button slds-button_neutral"  onclick= {handleEdit1}><label>Edit</label></button>
         </div>
     </template>
@@ -289,8 +289,8 @@
   </div>
   <template if:true={show2}>
     <div class="slds-align_absolute-center" style="height:5rem">
-      <lightning-button class = 'slds-var-m-right_medium' label="Cancel" title="cancel" onclick={handleAgencyCancel}></lightning-button>
-        <lightning-button variant="brand" label="Save" title="save" onclick={handleAgencySave}></lightning-button>
+      <lightning-button class = 'slds-var-m-right_medium slds-var-m-top_medium' label="Cancel" title="cancel" onclick={handleAgencyCancel}></lightning-button>
+        <lightning-button variant="brand" class="slds-var-m-around_medium" label="Save" title="save" onclick={handleAgencySave}></lightning-button>
     </div>
   </template>
   
@@ -585,10 +585,10 @@
     <thead>
     <tr class="slds-line-height_reset">
     <th class="" scope="col">
-    <div class="slds-truncate" style="width: 65%; margin: 0px 35px;" title="Commission Rate #">Commission Rate #</div>
+    <div class="slds-truncate" title="Commission Rate #">Commission Rate #</div>
     </th>
     <th class="" scope="col">
-    <div class="slds-truncate" style="width: 125%;" title="Producers">Producers</div>
+    <div class="slds-truncate"  title="Producers">Producers</div>
     </th>
     <th class="" scope="col">
     <div class="slds-truncate" title="Role">Role</div>
@@ -642,18 +642,16 @@
                     </div>
                     </td>
                 </template>
-                <!--template if:true= {show}>
+                <template if:true= {show}>
                   <td role="gridcell">
                     <div  title="Role">
-                      <lightning-record-edit-form
+                      <lightning-record-view-form
                           record-id={data.Id}
-                          object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c"
-                          class = "ProducerCommissionFields">
-                      <lightning-input-field field-name="Role__c" variant = 'label-hidden'></lightning-input-field>
-                      </lightning-record-edit-form>
+                          object-api-name="VRNA__Producer_Sub_Producer_Commission_Rate__c">
+                      <lightning-output-field field-name="Role__c" variant = 'label-hidden'></lightning-output-field>
+                      </lightning-record-view-form>
                     </div>
-                    </td-->
-                <template if:true= {show}>
+                    </td>
                   <td role="gridcell">
                       <div class="slds-truncate" title="Producer Commission %">
                         <lightning-record-edit-form
